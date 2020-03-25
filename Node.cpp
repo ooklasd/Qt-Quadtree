@@ -18,43 +18,45 @@ namespace tree
 		if ((!isSeperated() && _values.size() < _maxCount)
 			|| local == -1)
 		{
+			if (local != -1)
+				_isAllNoLocal = false;
+
 			//加入到自身
 			_values.push_back(point);
 			return this;
 		}
 		else
 		{
-			if (!isSeperated())
+			if (!isSeperated() && !_isAllNoLocal)
 			{
-				//若数量过大，则先分割本身
-				auto temp = std::move(_values);
-				for (auto& p : temp)
-				{
-					addPoint(p);
-				}
+				seperate();
 			}
 
 			auto node = getOrCreateNode(local, point);
-			return node->addPoint(point);
+			return node->addPoint(point);;
 		}
 	}
 
 	Node* Node::findNode(const Vector3d& point)
 	{
-		for (auto it = _values.begin(); it != _values.end(); ++it)
+		auto local = _seperator.local(point);
+
+		if (local == -1 || !isSeperated())
 		{
-			if (*it == point)
+			for (auto& p : _values)
 			{
-				_values.erase(it);
-				return this;
+				if (p == point)
+				{
+					return this;
+				}
 			}
 		}
-
-		for (auto& node : _nodes)
+		else
 		{
-			if (node == nullptr) continue;
-			if (node->findNode(point))
-				return node.get();
+			if (auto node = _nodes[local].get())
+			{
+				return node->findNode(point);
+			}
 		}
 
 		return nullptr;
@@ -62,23 +64,28 @@ namespace tree
 
 	bool Node::removePoint(const Vector3d& point)
 	{
-		for (auto it = _values.begin(); it != _values.end(); ++it)
+		auto local = _seperator.local(point);
+
+		if (local == -1)
 		{
-			if (*it == point)
+			for (auto it = _values.begin(); it != _values.end(); ++it)
 			{
-				_values.erase(it);
-				return true;
+				if (*it == point)
+				{
+					_values.erase(it);
+					return true;
+				}
+			}
+		}
+		else
+		{
+			if (auto node = _nodes[local].get())
+			{
+				return node->removePoint(point);
 			}
 		}
 
-		for (auto& node : _nodes)
-		{
-			if (node == nullptr) continue;
-			if (node->removePoint(point))
-				return true;
-		}
-
-		return false;
+		return nullptr;
 	}
 
 	size_t Node::count() const
@@ -90,6 +97,25 @@ namespace tree
 			sum += node->count();
 		}
 		return sum + _values.size();
+	}
+
+	void Node::seperate()
+	{
+		for (auto it = _values.begin(); it != _values.end(); )
+		{
+			auto& point = *it;
+			auto local = _seperator.local(point);
+			if (local != -1)
+			{
+				getOrCreateNode(local, point)->addPoint(point);
+				it = _values.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+		_isAllNoLocal = true;
 	}
 
 	void Node::accept(NodeVisitor* visitor)

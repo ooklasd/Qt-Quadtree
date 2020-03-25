@@ -18,7 +18,7 @@ namespace tree
 		
 		//标志位,若000  可能存在四种情况00 01 10 11
 		int mark = 1;
-		bool isOverAll = false;
+		bool isOverAll = true;
 		for (auto& dir : _dirs)
 		{
 			//计算点到面的距离
@@ -30,7 +30,7 @@ namespace tree
 
 			isOverAll = isOverAll && fabs(distance) < 10e-6;
 
-			mark << 1;
+			mark = mark << 1;
 		}
 		return isOverAll?-1:ret;
 	}
