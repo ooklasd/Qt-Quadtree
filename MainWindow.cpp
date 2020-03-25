@@ -3,6 +3,9 @@
 #include "MainWindow.h"
 #include "QPainter"
 #include "QImage"
+#include "QImage"
+#include "QTime"
+#include "QElapsedTimer"
 #include <assert.h>
 #include <future>
 
