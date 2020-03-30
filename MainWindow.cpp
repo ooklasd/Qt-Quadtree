@@ -44,10 +44,10 @@ void MainWindow::buildPoint()
 
 void MainWindow::buildTree()
 {
-	_rootNode.swap(std::make_unique<tree::Node>());
+	_rootNode.swap(std::make_unique<tree::Node>(tree::Seperator(QVector3D())));
 	for (auto& p : _points)
 	{
-		_rootNode->addPoint(p);
+		_rootNode->addPoint(&p);
 	}
 
 	_rect = computeRect(_rootNode.get());
@@ -99,7 +99,7 @@ QRectF MainWindow::computeRect(tree::Node* node)
 
 	for (auto& it : node->getValues())
 	{
-		ret |= QRectF(it.toPointF(), QSizeF());
+		ret |= QRectF(it->toPointF(), QSizeF());
 	}
 	
 	for (auto& child : node->getNodes())
@@ -124,7 +124,7 @@ void MainWindow::drawPoint(QPainter& painter, tree::Node* node)
 
 	for (auto& it : node->getValues())
 	{
-		painter.drawPoint(it.toPointF());
+		painter.drawPoint(it->toPointF());
 	}
 
 	int index = 0;

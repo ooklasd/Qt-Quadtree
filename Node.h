@@ -15,12 +15,11 @@ namespace tree
 		using Vector3d = QVector3D;
 		using NodePtr = std::unique_ptr<Node>;
 
-		Node(Vector3d p = Vector3d()):Node(Seperator(p)){}
 		Node(Seperator s);
 		~Node(){}
 
 		//增加点
-		Node* addPoint(Vector3d point);
+		Node* addPoint(const Vector3d* point);
 		Node* findNode(const Vector3d& point);
 		const Node* findNode(const Vector3d& point)const{
 			return const_cast<Node *>(this)->findNode(point);
@@ -41,9 +40,9 @@ namespace tree
 		//主动进行分割
 		void seperate();
 
-		std::vector<Vector3d> findPoints(const Vector3d& pointMin, const Vector3d& pointMax)const;
+		std::vector<const Vector3d*> findPoints(const Vector3d& pointMin, const Vector3d& pointMax)const;
 
-		const std::vector<Vector3d>& getValues() const { return _values; }
+		const std::vector<const Vector3d*>& getValues() const { return _values; }
 		const std::array<NodePtr, 4>& getNodes() const { return _nodes; }
 		const Seperator& getSeperator() const { return _seperator; }
 
@@ -59,7 +58,7 @@ namespace tree
 
 		//四叉树节点
 		std::array<NodePtr, 4> _nodes;
-		std::vector<Vector3d> _values;
+		std::vector<const Vector3d*> _values;
 
 		//是否都是无位置的点
 		bool _isAllNoLocal = false;

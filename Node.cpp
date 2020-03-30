@@ -12,9 +12,9 @@ namespace tree
 
 	}
 
-	tree::Node* Node::addPoint(Vector3d point)
+	tree::Node* Node::addPoint(const Vector3d*  point)
 	{
-		auto local = _seperator.local(point);
+		auto local = _seperator.local(*point);
 		if ((!isSeperated() && _values.size() < _maxCount)
 			|| local == -1)
 		{
@@ -32,7 +32,7 @@ namespace tree
 				seperate();
 			}
 
-			auto node = getOrCreateNode(local, point);
+			auto node = getOrCreateNode(local, *point);
 			return node->addPoint(point);;
 		}
 	}
@@ -45,7 +45,7 @@ namespace tree
 		{
 			for (auto& p : _values)
 			{
-				if (p == point)
+				if (*p == point)
 				{
 					return this;
 				}
@@ -70,7 +70,7 @@ namespace tree
 		{
 			for (auto it = _values.begin(); it != _values.end(); ++it)
 			{
-				if (*it == point)
+				if (**it == point)
 				{
 					_values.erase(it);
 					return true;
@@ -104,10 +104,10 @@ namespace tree
 		for (auto it = _values.begin(); it != _values.end(); )
 		{
 			auto& point = *it;
-			auto local = _seperator.local(point);
+			auto local = _seperator.local(*point);
 			if (local != -1)
 			{
-				getOrCreateNode(local, point)->addPoint(point);
+				getOrCreateNode(local, *point)->addPoint(point);
 				it = _values.erase(it);
 			}
 			else
