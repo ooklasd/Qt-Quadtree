@@ -6,7 +6,6 @@
 
 namespace tree
 {
-	class NodeVisitor;
 	//ËÄ²æÊ÷½Úµã
 	class Node
 	{
@@ -45,9 +44,6 @@ namespace tree
 		const std::vector<const Vector3d*>& getValues() const { return _values; }
 		const std::array<NodePtr, 4>& getNodes() const { return _nodes; }
 		const Seperator& getSeperator() const { return _seperator; }
-
-		virtual void accept(NodeVisitor* visitor);
-		virtual void traverse(NodeVisitor* visitor);
 
 	protected:
 		Node* getOrCreateNode(int local, const Vector3d& point);

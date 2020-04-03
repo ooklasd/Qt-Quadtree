@@ -8,6 +8,8 @@
 #include "QElapsedTimer"
 #include <assert.h>
 #include <future>
+#include <random>
+
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -31,13 +33,19 @@ void MainWindow::buildPoint()
 	size_t count = ui->edtPointCount->value();
 	
 	_points.resize(count);
+
+	std::default_random_engine e; //引擎
+	std::normal_distribution<float> nrand(0, 10000); //均值, 方差
+
 	for (size_t i = 0; i < count ; ++i)
 	{
 		auto& p = _points[i];
 		for (size_t j = 0,Length = 2; j < Length ; ++j)
 		{
-			auto r = (double)(qrand() % 10000);
-			p[j] = (float)(r / 10000 - 0.5) * count;
+			/*auto r = (double)(qrand() % 10000);
+			p[j] = (float)(r / 10000 - 0.5) * count;*/
+
+			p[j] = nrand(e);
 		}
 	}
 }

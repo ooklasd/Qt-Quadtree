@@ -87,9 +87,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="NodeVisitor.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Seperator.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -99,7 +98,6 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="NodeVisitor.h" />
     <ClInclude Include="Seperator.h" />
     <ClInclude Include="TreeBuilder.h" />
     <CustomBuild Include="MainWindow.h">

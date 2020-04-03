@@ -38,6 +38,12 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Tree">
+      <UniqueIdentifier>{e41aae08-e86d-4902-ba28-744d391c568f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DTM">
+      <UniqueIdentifier>{d33c8813-9a06-416a-9c59-558c73bb21e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -49,15 +55,6 @@
     <ClCompile Include="GeneratedFiles\qrc_QtGuiApplication.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Seperator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeVisitor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,18 +64,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="Seperator.cpp">
+      <Filter>Tree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Seperator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeVisitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
@@ -86,6 +80,12 @@
     </ClInclude>
     <ClInclude Include="TreeBuilder.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="Seperator.h">
+      <Filter>Tree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
